@@ -1,0 +1,31 @@
+name: Node  CI
+
+on:
+  workflow_dispatch:
+    inputs:
+      name:
+        description: "Who to greet"
+        default: "World"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        mocha-version: [6, 7, 8, 9]
+        node-version: [16.x, 18.x, 20.x]
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+    - name: npm install
+      run: npm install
+    - name: npm ci
+      run: npm run ci
+      env:
+        CI: true
+        MOCHA_VERSION: ${{ matrix.mocha-version }}

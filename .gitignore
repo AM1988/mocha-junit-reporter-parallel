@@ -1,0 +1,9 @@
+.c9/
+.idea/
+node_modules/
+test/*.xml
+test/output/
+node-debug*
+npm-debug*
+test-results.xml
+.gitpod.yml
